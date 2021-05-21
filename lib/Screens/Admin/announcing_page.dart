@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
+import 'package:flutter/cupertino.dart';
 import 'dart:convert';
+import 'package:url_launcher/url_launcher.dart';
+import 'package:helpingwidget/Screens/Admin/bugreports_page.dart';
 
 class Announcing extends StatefulWidget {
   @override
@@ -9,6 +12,7 @@ class Announcing extends StatefulWidget {
 }
 
 class _AnnouncingState extends State<Announcing> {
+  int _page=0;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,8 +27,79 @@ class _AnnouncingState extends State<Announcing> {
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       body: annouce(context),
+      bottomNavigationBar: CupertinoTabBar(
+
+          currentIndex: _page,
+          backgroundColor: Colors.white,
+          items: <BottomNavigationBarItem>[
+            BottomNavigationBarItem(
+              icon: Icon(Icons.announcement,
+                color: (_page == 0) ? Colors.black : Colors.grey,
+              ),
+              title: new Text('Announcements', style: TextStyle(color: Colors.black87,
+                  fontSize: 11.0,
+                  fontWeight: FontWeight.bold),),
+              backgroundColor: Colors.white,
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.bug_report_sharp,
+                color: (_page == 1) ? Colors.black : Colors.grey,
+
+              ),
+              title: new Text('Bug Reports', style: TextStyle(color: Colors.black87,
+                  fontSize: 11.0,
+                  fontWeight: FontWeight.bold),),
+              backgroundColor: Colors.white,
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.dynamic_feed_rounded,
+                color: (_page == 2) ? Colors.black : Colors.grey,
+
+              ),
+              title: new Text('Live Feedback', style: TextStyle(color: Colors.black87,
+                  fontSize: 11.0,
+                  fontWeight: FontWeight.bold),),
+              backgroundColor: Colors.white,
+            ),
+
+          ],
+          onTap: (index) {
+            //setState(() {_page = index;});
+            _page = index;
+            if (_page == 1) {
+               launch("https://console.wiredash.io/project/airbus-assistant-zthqbed/feedback/60a66895828dca000e59d32a");
+            }
+            if (_page == 2) {
+              launch("https://console.wiredash.io/project/airbus-assistant-zthqbed/feedback/60a668ad828dca000e59d32b");
+            }
+            // if (_page == 3) {
+            //   return Navigator.push(context,
+            //     MaterialPageRoute(builder: (context) => Involve()),
+            //   );
+            // }
+          },
+
+        ),
     );
   }
+  
+  openURL() async{
+    if(await canLaunch("https://console.wiredash.io/project/airbus-assistant-zthqbed/feedback/60a66895828dca000e59d32a")){
+      await launch("https://console.wiredash.io/project/airbus-assistant-zthqbed/feedback/60a66895828dca000e59d32a");
+
+    }else{
+      throw 'Could Not Launch URL';
+    }
+  }
+  openURL2() async{
+    if(await canLaunch("https://console.wiredash.io/project/airbus-assistant-zthqbed/feedback/60a668ad828dca000e59d32b")){
+      await launch("https://console.wiredash.io/project/airbus-assistant-zthqbed/feedback/60a668ad828dca000e59d32b");
+
+    }else{
+      throw 'Could Not Launch URL';
+    }
+  }
+
 
   void popupSheet(context) {
     TextEditingController title = TextEditingController();

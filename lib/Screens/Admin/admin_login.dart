@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:helpingwidget/Screens/Admin/admin_home_page.dart';
+import 'package:helpingwidget/Screens/Admin/announcing_page.dart';
+
 import 'package:helpingwidget/shared/theme.dart';
 
 class AdminLogin extends StatefulWidget {
@@ -210,7 +212,7 @@ class _AdminLoginState extends State<AdminLogin> {
                               ),
                             ),
                             onPressed: () async{
-                              return Navigator.of(context).push(MaterialPageRoute(builder: (context)=> AdminHomePage()));
+                              return Navigator.push(context,MaterialPageRoute(builder: (context) => Announcing()),);
 
 
                             }
