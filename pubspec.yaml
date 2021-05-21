@@ -36,6 +36,7 @@ dependencies:
   simple_url_preview: ^0.1.10
   url_launcher: ^5.5.0
   flutter_inappwebview: ^5.3.2
+  alan_voice: ^2.0.15
 
 dev_dependencies:
   flutter_test:
